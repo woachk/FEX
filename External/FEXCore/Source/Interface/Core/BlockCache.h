@@ -34,10 +34,13 @@ public:
 
   uintptr_t AddBlockMapping(uint64_t Address, void *Ptr) {
     if (ctx->Config.UnifiedMemory) {
-      LogMan::Throw::A(Address >= MemoryBase, "Code Address before Memory Base");
-      LogMan::Throw::A(Address < (MemoryBase + VirtualMemSize), "Code address after memory base");
-      Address -= MemoryBase;
+      //LogMan::Throw::A(Address >= MemoryBase, "Code Address before Memory Base");
+      //LogMan::Throw::A(Address < (MemoryBase + VirtualMemSize), "Code address after memory base");
+      //Address -= MemoryBase;
     }
+
+    //For know, let's mirror
+    Address %= VirtualMemSize;
 
     uint64_t PageOffset = Address & (0x0FFF);
     Address >>= 12;
@@ -86,10 +89,13 @@ private:
 
   uintptr_t FindCodePointerForAddress(uint64_t Address) {
     if (ctx->Config.UnifiedMemory) {
-      LogMan::Throw::A(!(Address < MemoryBase), "Code Address before Memory Base");
-      LogMan::Throw::A(!(Address > (MemoryBase + VirtualMemSize)), "Code address after memory base");
-      Address -= MemoryBase;
+      //LogMan::Throw::A(!(Address < MemoryBase), "Code Address before Memory Base");
+      //LogMan::Throw::A(!(Address > (MemoryBase + VirtualMemSize)), "Code address after memory base");
+      //Address -= MemoryBase;
     }
+
+    //For know, let's mirror
+    Address %= VirtualMemSize;
 
     uint64_t PageOffset = Address & (0x0FFF);
     Address >>= 12;

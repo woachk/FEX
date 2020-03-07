@@ -105,7 +105,7 @@ int main(int argc, char **argv, char **const envp) {
   auto SHM = FEXCore::SHM::AllocateSHMRegion(1ULL << 32);
   auto CTX = FEXCore::Context::CreateNewContext();
   FEXCore::Context::InitializeContext(CTX);
-  FEXCore::Context::SetApplicationFile(CTX, std::filesystem::canonical(Args[0]));
+  FEXCore::Context::SetApplicationFile(CTX, Args[0]);
 
   FEXCore::Config::SetConfig(CTX, FEXCore::Config::CONFIG_DEFAULTCORE, CoreConfig() > 3 ? FEXCore::Config::CONFIG_CUSTOM : CoreConfig());
   FEXCore::Config::SetConfig(CTX, FEXCore::Config::CONFIG_MULTIBLOCK, MultiblockConfig());
