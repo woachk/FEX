@@ -14,7 +14,7 @@ namespace FEXCore::Memory {
     uintptr_t PtrOffset = reinterpret_cast<uintptr_t>(SHM->Object.Ptr) + Offset;
 
     void *Ptr = mmap(reinterpret_cast<void*>(PtrOffset), Size, Flags,
-      MAP_POPULATE | MAP_SHARED | (Fixed ? MAP_FIXED : 0), SHM->SHMFD, Offset);
+      MAP_POPULATE | MAP_PRIVATE | (Fixed ? MAP_FIXED : 0), SHM->SHMFD, Offset);
 
     if (Ptr == MAP_FAILED) {
       LogMan::Msg::A("Failed to map memory region [0x%lx, 0x%lx)", Offset, Offset + Size);
@@ -28,7 +28,7 @@ namespace FEXCore::Memory {
     uintptr_t PtrOffset = reinterpret_cast<uintptr_t>(SHM->Object.Ptr) + Offset;
 
     void *Ptr = mmap(reinterpret_cast<void*>(PtrOffset), Size, Flags,
-      MAP_SHARED | (Fixed ? MAP_FIXED : 0), SHM->SHMFD, Offset);
+      MAP_PRIVATE | (Fixed ? MAP_FIXED : 0), SHM->SHMFD, Offset);
 
     if (Ptr == MAP_FAILED) {
       LogMan::Msg::A("Failed to map memory region [0x%lx, 0x%lx)", Offset, Offset + Size);
